@@ -2,7 +2,7 @@
 """
 Created on Fri Oct 20 13:43:30 2017
 
-@author: Tim
+@author: Tim Taviano
 """
 import math as m
 import random as r
@@ -71,6 +71,7 @@ class Puzzle:
         return temp_row.copy()
     def fitness(self):
         self.fit =0
+        #calculate how many are wrong in each row and column
         for row in range(self.n):
             currentrow = self.getRow(row)
             for num in range(1,self.n+1):
@@ -79,6 +80,13 @@ class Puzzle:
             currentcol = self.getCol(col)
             for num in range(1,self.n+1):
                 self.fit += abs(currentcol.count(num)-1)
+        #divide by 2 to cut cut away double counting errors.
+        self.fit = (float(1) /(float(self.fit/2)+1.0))
         return self.fit
+
+def GeneratePop(pop_size,n):
+    population_list = list()
+    for each in range(pop_size):
+        population_list.append(Puzzle(n))
+    return c.deepcopy(population_list)
         
-    
