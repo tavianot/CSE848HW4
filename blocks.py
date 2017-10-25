@@ -118,7 +118,37 @@ def SelectParents(pop_list,n):
         for x in range(num):
             select_list.append(c.deepcopy(each))
     r.shuffle(select_list)
-    parent_list = list()
-    for selection in range(n):
-        parent_list.append(c.deepcopy(r.choice(select_list)))
-    return parent_list
+    return  c.deepcopy(select_list)
+def MakeChildren(n,parents,crossover,mutation):
+	children = list()
+	for each in range(n):
+		p1 = c.deepcopy(r.choice(parents))
+		p2 = c.deepcopy(r.choice(parents))
+
+		child1 = c.deepcopy(p1)
+		child2 = c.deepcopy(p2)
+		random1 = r.random()
+		random2 = r.random()
+		if(random1 <=crossover):
+			#do crossover
+			pass
+		else if(random1 <=crossover+mutation):
+			#do mutation
+			pass
+		else:
+			pass
+			#child one is copy of parent1
+
+		if(random2 <=crossover):
+			#do crossover
+			pass
+		else if(random2 <=crossover+mutation):
+			#do mutation
+			pass
+		else:
+			pass
+			#child two is copy of parent2
+
+	
+
+
