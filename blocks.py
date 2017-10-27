@@ -7,6 +7,9 @@ Created on Fri Oct 20 13:43:30 2017
 import math as m
 import random as r
 import copy as c
+import numpy as np
+import matplotlib as mp
+import matplotlib.pyplot as pp
 r.seed(1)
 
 #class for blocks within sudoku puzzle
