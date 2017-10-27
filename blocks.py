@@ -110,7 +110,7 @@ def TotalFitness(pop_list):
     for each in pop_list:
         total += each.fit
     return total
-def SelectParents(pop_list,n):
+def SelectParents(pop_list):
     total = TotalFitness(pop_list)
     select_list = list()
     for each in pop_list:
@@ -119,36 +119,75 @@ def SelectParents(pop_list,n):
             select_list.append(c.deepcopy(each))
     r.shuffle(select_list)
     return  c.deepcopy(select_list)
-def MakeChildren(n,parents,crossover,mutation):
-	children = list()
-	for each in range(n):
-		p1 = c.deepcopy(r.choice(parents))
-		p2 = c.deepcopy(r.choice(parents))
 
-		child1 = c.deepcopy(p1)
-		child2 = c.deepcopy(p2)
-		random1 = r.random()
-		random2 = r.random()
-		if(random1 <=crossover):
-			#do crossover
-			pass
-		else if(random1 <=crossover+mutation):
-			#do mutation
-			pass
-		else:
-			pass
-			#child one is copy of parent1
+def MakeChildren(n,p,parents,crossover,mutation):
+        children = list()
+        for each in range(p):
+                p1 = c.deepcopy(r.choice(parents))
+                p2 = c.deepcopy(r.choice(parents))
 
-		if(random2 <=crossover):
-			#do crossover
-			pass
-		else if(random2 <=crossover+mutation):
-			#do mutation
-			pass
-		else:
-			pass
-			#child two is copy of parent2
+                child1 = c.deepcopy(p1)
+                child2 = c.deepcopy(p2)
+                random1 = r.random()
+                random2 = r.random()
+                if(random1 <=crossover):
+                        #do crossover
+                        index1 = r.randint(0,n-1)
+                        index2 = r.randint(0,n-1)
+                        child1.ChangeBlock(c.deepcopy(p2.blocks[index2]),index1)
+                elif (random1 <= crossover + mutation):
+                        #do mutation
+                        index = r.randint(0,n-1)
+                        child1.blocks[index].shuffle()
+                else:
+                        pass
+                        #child one is copy of parent1
 
-	
+                if(random2 <=crossover):
+                        #do crossover
+                        index1 = r.randint(0,n-1)
+                        index2 = r.randint(0,n-1)
+                        child2.ChangeBlock(c.deepcopy(p1.blocks[index1]),index2)
+
+                elif (random2 <=crossover + mutation):
+                        #do mutation
+                        index = r.randint(0,n-1)
+                        child2.blocks[index].shuffle()
+                else:
+                    pass
+                children.append(c.deepcopy(child1))
+                children.append(c.deepcopy(child2))
+        return children
+def test():
+    l= GeneratePop(100,9)
+    SortPop(l)
+    print(l[0].fit)
+    print(l[99].fit)
+    p = SelectParents(l)
+    print(len(p))
+    p[0].print()
+    c = MakeChildren(9,100,p,.4,.3)
+    print(c)
+    c[0].print()
+    SortPop(c)
+    print()
+    c[0].print()
+    print(c[199].fit)
+    
+def main():
+    pop_size= 1000
+    puz_width = 9
+    num_generation =10000
+    population = GeneratePop(num_generation,puz_width)
+    SortPop(population)
+    average_fitness = list()
+    max_fitness = list()
+    index_list()
+    for gen in range(num_generation):
+        SortPop(population)
+        average_fitness.append(TotalFitness/pop_size)
+        max_fitness.append(population[pop_size-1].fit)
+        index_list.append(gen)
+
 
 
