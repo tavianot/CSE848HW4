@@ -211,10 +211,10 @@ def main():
         if(population[pop_size-1].fit == 0):
             break
 
-        if(gen>=num_generation/10):
-             if(len(set(max_fitness[-1*num_generation//10:]))==1):
-                 population = GeneratePop(pop_size,puz_width)
-                 SortPop(population)
+#        if(gen>=num_generation/10):
+#             if(len(set(max_fitness[-1*num_generation//10:]))==1):
+#                 population = GeneratePop(pop_size,puz_width)
+#                 SortPop(population)
 
         par = SelectParents(population, pop_size)
         childs = MakeChildren(puz_width,pop_size,par,crossov,mutat)
@@ -231,7 +231,7 @@ def main():
     pp.legend(["best fitness","average fitness"], loc= 'lower left')
     pp.xlabel('Generation')
     pp.ylabel('Fitness')
-    pp.title('GA runs with 9x9 puzzles with convergence reset')
+    pp.title('GA runs with 9x9 puzzles')
     pp.xticks(index_list)
     axes = pp.gca()
     axes.yaxis.set_major_locator(ticker.MultipleLocator(5))
